@@ -1,0 +1,5 @@
+# Properties for image registration
+#__is_support_kvm=false
+__is_support_kvm=true
+__is_support_hana=false
+__support_gpu_type=false

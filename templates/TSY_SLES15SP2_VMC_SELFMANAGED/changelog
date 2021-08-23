@@ -1,0 +1,2 @@
+22.10.18 08:51:	Prevent tsy-boot.sh from running on first image deployment needed for vmware-tools.
+

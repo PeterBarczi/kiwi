@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='utf-8'?>
+    <image name='TSY_SLES15SP2_VMC_SELFMANAGED' displayname='TSY_SLES15SP2_VMC_SELFMANAGED' schemaversion='6.9'>
+    <description type='system'>
+        <author>Jan Kukurugya</author>
+        <contact>jan.kukurugya@t-systems.com</contact>
+        <specification>SLES15_SP2_VMC_MANAGED</specification>
+    </description>
+    <preferences>
+        <packagemanager>zypper</packagemanager>
+        <rpm-check-signatures>false</rpm-check-signatures>
+	<timezone>Europe/Berlin</timezone>
+	<locale>en_US</locale>
+	<type bootfilesystem="ext4" bootloader="grub2" bootpartition="true" bootpartsize="1024" filesystem="ext4" format="vmdk" fsmountoptions="acl" image="vmx" kernelcmdline="audit=1 elevator=noop quiet">
+           
+	 <machine HWversion="19" guestOS="sles15-64" memory="4096">
+                <vmdisk controller="pvscsi" id="0"/>
+                <vmnic driver="vmxnet3" interface="0" mode="none"/>
+         </machine>
+           
+	 <size unit="M" additive="false">40960</size>
+            <systemdisk name="vg00">
+                <volume mountpoint="home" name="lv_home" size="4096M"/>
+                <volume mountpoint="opt" name="lv_opt" size="2048M"/>
+                <volume mountpoint="tmp" name="lv_tmp" size="2048M"/>
+                <volume mountpoint="usr" name="lv_usr" size="4096M"/>
+                <volume mountpoint="var" name="lv_var" size="8192M"/>
+                <volume mountpoint="swap" name="lv_swap" size="2048M"/>
+                <volume name="@root" size="2048M"/>
+            </systemdisk>
+        </type>
+        <version>0.0.1</version>
+    </preferences>
+    <users>
+    <user groups="root" home="/root" name="root" password="$6$SG2dJg7W$ytoA3GNzhFxaLT2an7Ez4dZ95BUBDGAb0B/e/omOdMON2MRHrkUVb9b7yG86LEjplihtnrDMFFyVgl5izyMUn0"
+        pwdformat="encrypted" shell="/bin/bash"/>
+    <user groups="mcs" home="/home/mcs" name="mcs" password="$6$hoXS5YXv$V4wE6JvZurqXAgz5g5cxjJM6Aoixqt97RuG1hMcwO4ytgM.cgyll0CGC9T3kNjEGcasbN2ddremOaSsHaqvo21"
+        pwdformat="encrypted" shell="/bin/bash"/>
+    </users>
+    <drivers>
+        <file name="drivers/scsi/vmw_pvscsi.ko"/>
+    </drivers>
+    <repository type="yast2">
+        <source path="http://10.130.3.198/repo/SUSE/Products/SLE-Module-Basesystem/15-SP2/x86_64/product"/>
+    </repository>
+    <repository type="yast2">
+        <source path="http://10.130.3.198/repo/SUSE/Products/SLE-Product-SLES/15-SP2/x86_64/product"/>
+    </repository>
+    <repository type="yast2">
+        <source path="http://10.130.3.198/repo/SUSE/Updates/SLE-INSTALLER/15-SP2/x86_64/update"/>
+    </repository>
+    <repository type="yast2">
+        <source path="http://10.130.3.198/repo/SUSE/Updates/SLE-Module-Basesystem/15-SP2/x86_64/update"/>
+    </repository>
+    <repository type="yast2">
+        <source path="http://10.130.3.198/repo/SUSE/Updates/SLE-Product-SLES/15-SP2/x86_64/update"/>
+    </repository>
+    
+    <packages type="image">
+        <package name="grub2" bootinclude="true"/>
+        <package name="grub2-branding-SLE" bootinclude="true"/>
+        <package name="grub2-i386-pc" bootinclude="true"/>
+        <package name="grub2-snapper-plugin" bootinclude="true"/>
+        <package name="grub2-systemd-sleep-plugin" bootinclude="true"/>
+        <package name="firewalld"/>
+        <package name="iputils"/>
+        <package name="timezone"/>
+        <package name="openssl"/>
+	<package name="iproute2"/>
+        <package name="issue-generator"/>
+        <package name="kernel-default" bootinclude="true"/>
+        <package name="ksh"/>
+        <package name="ca-certificates"/>
+	 <package name="libvmtools0"/>
+        <package name="lvm2" bootinclude="true"/>
+        <package name="man"/>
+        <package name="nmap"/>
+        <package name="open-vm-tools"/>
+        <package name="openldap2-client"/>
+        <package name="python"/>
+        <package name="rsyslog"/>
+        <package name="sssd"/>
+        <package name="sssd-ldap"/>
+        <package name="sssd-tools"/>
+        <package name="sudo"/>
+        <package name="supportutils"/>
+        <package name="tar"/>
+        <package name="tar-lang"/>
+        <package name="vim"/>
+        <package name="chrony"/>
+	<package name="cron"/>
+        <package name="audit"/>
+        <package name="vim-data"/>
+        <package name="wget"/>
+        <package name="dos2unix"/>
+	<package name="sles-release"/>
+        <package name="patterns-base-base"/>
+        <package name="yast2-vm"/>
+    </packages>
+    <packages type="bootstrap">
+        <package name="systemd"/>
+        <package name="filesystem"/>
+        <package name="glibc-locale"/>
+        <package name="module-init-tools"/>
+        <package name="insserv-compat"/>
+    </packages>
+</image>

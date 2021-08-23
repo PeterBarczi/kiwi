@@ -1,0 +1,12 @@
+[nit]
+Description=TSY SLES Patching service for vmc on aws
+After=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/tsy-patch-service.sh start
+ExecStop=/usr/local/sbin/tsy-patch-service.sh stop
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+[Unit]
+Description=Patching service for vmc on aws
+After=NetworkManager-wait-online.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/patch-service.sh start
+ExecStop=/usr/local/sbin/patch-service.sh stop
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,18 @@
+# Image capabilities
+# See ~/Tools/img_cap_flags.sh for the bits
+# Hypervisors: bits 0--3
+# supports_xen=0x01 supports_kvm=0x02 pvops_drivers=0x04
+# accel IO drivers: bits 4--7
+# supports_ixgbevf216=0x10 supports_kvm_vif_multiqueue=0x20 supports_pvscsi=0x40 supports_kvm_ib=0x80
+# Xen GPU: bits 8&9
+# GPU_bitmask=0x300 supports_M60_vGPU=0x100 supports_K80_GPU=0x200 supports_M60_GPU=0x300
+# KVM GPU: bits 10&11
+# GPU_bitmask=0xc00 supports_M60_vGPU=0x400 supports_K80_GPU=0x800 supports_M60_GPU=0xc00
+# SW config bits 12--15
+# has_uvpmonitor=0x1000 hana_config=0x2000
+# Bits 16-19: baremetal
+# UVP|IB|MQ|IXGBE|PVOPS|XEN|KVM
+capabilities=0x310b7
+# Filter out unwanted/untested capabilities (optional)
+#capunqualified=0x0022
+

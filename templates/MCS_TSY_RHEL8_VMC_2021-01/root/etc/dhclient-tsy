@@ -1,0 +1,19 @@
+#!/bin/sh
+#**************************************
+# This script sets ipv6 Adminlanroutes based on custom options (dhcp6.route6)
+#**************************************
+
+for LEASE_FILE in $(ls -1 /var/lib/dhclient/dhclient6--${interface}.lease /var/lib/dhclient/dhclient6-\${interface}.leases /var/lib/dhcp6/dhclient6.\${interface}.lease 2>/dev/null); do
+while [[ "${COUNT}" != "30" ]] && ! cat $LEASE_FILE | grep -q "dhcp6.route6"; do sleep 1; COUNT=$((${COUNT} +1)); done
+cat $LEASE_FILE |grep "option dhcp6.route6" |sed -e s'/option dhcp6.route6//' |sed -e 's/,/\n/g' -e 's/;//' |while read LINE; do
+RT_SUBNET=$(echo "${LINE}"| awk '{print $1"/"$2}')
+GW=$(echo "${LINE}"| awk '{print $3}')
+while [[ "${COUNT}" != "30" ]] && ! ip -6 a s ${interface} |grep inet6 |grep -vq "scope link"; do sleep 1; COUNT=$((${COUNT} +1)); done
+if /sbin/ip -6 route show |grep -q "${RT_SUBNET} via ${GW} dev ${interface}"; then
+exit 0
+else
+/sbin/ip -6 route add ${RT_SUBNET} via ${GW} dev ${interface}
+fi
+done
+done
+exit 0

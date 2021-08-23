@@ -1,0 +1,10 @@
+# smallest Xen
+computev1-1
+# HPF Xen IXGBEVF
+h1.large
+# Infiniband KVM
+hl1.8xlarge.8
+# KVM
+#s2.medium.1
+# BMS
+physical.o2.medium

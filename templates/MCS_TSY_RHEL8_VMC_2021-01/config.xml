@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<image name='TSY_RHEL8_VMC_MANAGED' displayname='TSY_RHEL8_VMC' schemaversion='6.7'>
+  <description type='system'>
+    <author>Jan Kukurugya</author>
+    <contact>jan.kukurugya@t-systems.com</contact>
+    <specification>RHEL8_VMC_MANAGED</specification>
+  </description>
+
+  <drivers>
+    <file name="drivers/scsi/vmw_pvscsi.ko"/>
+  </drivers>
+
+    <strip type="delete">
+        <file name="/usr/lib*/python*"/>
+        <file name="/usr/lib*/gconv"/>
+        <file name="/usr/share/zoneinfo"/>
+        <file name="/usr/share/i18n"/>
+        <file name="/lib/i686/nosegneg"/>
+        <file name="/lib/kbd"/>
+    </strip>
+
+    <preferences>
+        <version>0.0.1</version>
+        <packagemanager>dnf</packagemanager>
+        <locale>en_US</locale>
+        <timezone>Europe/Berlin</timezone>
+        <hwclock>utc</hwclock>
+        <rpm-check-signatures>false</rpm-check-signatures>
+      
+	<type bootpartition="true" bootpartsize="1024" bootfilesystem="ext4" filesystem='ext4' bootloader='grub2' format="vmdk" kernelcmdline='console=ttyS0,115200n8 console=tty0 biosdevname=0 net.ifnames=1 audit=1 crashkernel=256M-12G:128M,12G-48G:256M,48G-:512M' fsmountoptions='acl' image='vmx'> 
+          <machine memory="4096" guestOS="rhel7-64" HWversion="13">
+              <vmdisk id="0" controller="pvscsi"/>
+	      <vmdvd id="0" controller="ide"/>
+              <vmnic driver="vmxnet3" interface="0" mode="none"/>
+              <vmnic driver="vmxnet3" interface="1" mode="none"/>
+          </machine>
+          <size unit='M' additive='false'>40960</size>
+          <systemdisk name='vg00'>
+        	<volume name='lv_home' size='4096M' mountpoint='home'/>
+            <volume name='lv_opt' size='2048M' mountpoint='opt'/>
+            <volume name='lv_tmp' size='2048M' mountpoint='tmp'/>
+            <volume name='lv_usr' size='4096M' mountpoint='usr'/>
+            <volume name='lv_var' size='8192M' mountpoint='var'/>
+            <volume name='lv_hpoa' size='2048M' mountpoint='opt/hpoa'/>
+            <volume name='lv_swap' size='2048M' mountpoint='swap'/>
+            <volume name='lv_usropenv' size='3072M' mountpoint='usr/openv'/>
+            <volume name="@root" size="2048M"/>
+	</systemdisk>
+        </type>
+    </preferences>
+  <users>
+    <!--  Default PW: start123    -->
+    <user groups="root" home="/root" name="root" password="$6$AgR3DM4urKA9CTFq$zfTIUsN96Pt1zzdq4MwDe43oYx1kX5FfovcCzZ8bONxLkTJ2OOOeOM9paO03nygalhtTlwejEbF/Q906r0ilA0"
+        pwdformat="encrypted" shell="/bin/bash"/>
+    <user groups="mcs" home="/home/mcs" name="mcs" password="$6$hoXS5YXv$V4wE6JvZurqXAgz5g5cxjJM6Aoixqt97RuG1hMcwO4ytgM.cgyll0CGC9T3kNjEGcasbN2ddremOaSsHaqvo21"
+        pwdformat="encrypted" shell="/bin/bash"/>
+    <user groups="pwadm" home="/home/pwadm" name="pwadm" password="$6$hoXS5YXv$V4wE6JvZurqXAgz5g5cxjJM6Aoixqt97RuG1hMcwO4ytgM.cgyll0CGC9T3kNjEGcasbN2ddremOaSsHaqvo21"
+        pwdformat="encrypted" shell="/bin/bash" />
+ 
+  </users>
+ 
+ <repository type="rpm-md" priority="1" >
+      <source path="http://127.0.0.1/rhel8/rhui/8/x86_64/baseos/os/"/>
+  </repository>
+  <repository type="rpm-md" priority="1" >
+      <source path="http://127.0.0.1/rhel8/rhui/8.3/x86_64/supplementary/os/"/>
+  </repository>
+  <repository type="rpm-md" priority="1" >
+      <source path="http://127.0.0.1/rhel8/rhui/8.3/x86_64/appstream/os/"/>
+  </repository>
+  
+
+<packages type='image' patternType='onlyRequired'>
+    <package name='dos2unix'/>
+    <package name='m4'/>
+  </packages>
+
+<!-- ################################################################################## -->
+
+
+
+  <packages type='image'>
+    <namedCollection name="core"/>
+    <package name="kernel"/>
+    <package name="filesystem"/>
+    <package name="basesystem"/>
+    <package name="redhat-release-server"/>
+    <package name='ca-certificates'/>
+    <package name='cpp'/>
+    <package name='cups-libs'/>
+    <package name='cyrus-sasl'/>
+    <package name='cyrus-sasl-gssapi'/>
+    <package name='device-mapper'/>
+    <package name='diffutils'/>
+    <package name='dracut'/>
+    <package name='expect'/>
+    <package name='findutils'/>
+    <package name='glibc.i686'/>
+    <package name='grep'/>
+    <package name='grub2'/>
+    <package name='gzip'/>
+    <package name='kmod'/>
+    <package name='ksh'/>
+    <package name='make'/>
+    <package name='nmap'/>
+    <package name='nspr'/>
+    <package name='open-vm-tools'/>
+    <package name='openldap-clients'/>
+    <package name='openssl'/>
+    <package name='pam'/>
+    <package name='perl'/>
+    <package name='psmisc'/>
+    <package name='python36'/>
+    <package name='rpm'/>
+    <package name='sed'/>
+    <package name='sssd'/>
+    <package name='sssd-ldap'/>
+    <package name='sssd-tools'/>
+    <package name='sysfsutils'/>
+    <package name='yum'/>
+  </packages>
+
+<packages type="bootstrap">
+      <package name="dnf"/>
+	<package name="yum"/>
+	<package name="bash"/>
+  </packages>
+
+</image>
+
+

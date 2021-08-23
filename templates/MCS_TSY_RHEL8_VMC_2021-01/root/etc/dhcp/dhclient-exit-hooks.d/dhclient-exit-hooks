@@ -1,0 +1,3 @@
+#!/bin/sh
+/etc/dhcp/dhclient-tsy &
+exit 0
